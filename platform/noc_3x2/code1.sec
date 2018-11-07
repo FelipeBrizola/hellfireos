@@ -1,0 +1,23 @@
+
+code1.elf:     file format elf32-bigmips
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text.start   000002b4  10000000  10000000  00001000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .text         0000302c  100002b4  100002b4  000012b4  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       000008f4  100032e0  100032e0  000042e0  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .data         0000000c  10003bd4  10003bd4  00004bd4  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .bss          0007b478  10003be0  10003be0  00004be0  2**3
+                  ALLOC
+  5 .scommon      00000034  1007f058  1007f058  00004be0  2**2
+                  ALLOC
+  6 .reginfo      00000018  00000000  00000000  00004be0  2**2
+                  CONTENTS, READONLY, LINK_ONCE_SAME_SIZE
+  7 .comment      00000011  00000000  00000000  00004bf8  2**0
+                  CONTENTS, READONLY
+  8 .gnu.attributes 00000010  00000000  00000000  00004c09  2**0
+                  CONTENTS, READONLY
