@@ -1,0 +1,3 @@
+cd ~/Estudos/embarcados/hellfireos/platform/noc_3x2
+make images
+cp ~/Estudos/embarcados/hellfireos/platform/noc_3x2/*.bin ~/Estudos/embarcados/hellfireos/usr/sim/mpsoc_sim/objects

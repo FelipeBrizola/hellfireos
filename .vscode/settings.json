@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "labyrinth.h": "c",
+        "noc.h": "c"
+    }
+}
