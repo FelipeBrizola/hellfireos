@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.18.10 (4.6.1) [Nov 14 2018, 17:19:02]
+HellfireOS v2.18.10 (4.6.1) [Nov 14 2018, 20:58:51]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2018]
 ===========================================================
 
@@ -15,26 +15,26 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _timer_init()
 HAL: _irq_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10000ff4, sp: 100060f0, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001020, sp: 10013440, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core #0
-KERNEL: NoC queue init, 64 packets
+KERNEL: NoC queue init, 128 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [slave], id: 1, p:0, c:0, d:0, addr: 1000165c, sp: 1000a420, ss: 8192 bytes
-KERNEL: free heap: 481272 bytes
+KERNEL: [slave], id: 1, p:0, c:0, d:0, addr: 10001760, sp: 1001b508, ss: 15000 bytes
+KERNEL: free heap: 465504 bytes
 KERNEL: HellfireOS is up
 
 SLAVE => CREATING COMMUNICATION
 
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 2 | PORT: 3000
-SLAVE => SOLVING MAZE | lines: 1006964736 | columns: 614811776
+SLAVE => SOLVING MAZE | lines: 11 | columns: 21
 SLAVE => SENDING MAZE TO MASTER| CPU: 2 | PORT: 4000
 
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 2 | PORT: 3000
-SLAVE => SOLVING MAZE | lines: 1006964736 | columns: 614811776
+SLAVE => SOLVING MAZE | lines: 21 | columns: 41
 SLAVE => SENDING MAZE TO MASTER| CPU: 2 | PORT: 4000
 
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 2 | PORT: 3000
-SLAVE => SOLVING MAZE | lines: 1006964736 | columns: 614811776
+SLAVE => SOLVING MAZE | lines: 31 | columns: 51
 SLAVE => SENDING MAZE TO MASTER| CPU: 2 | PORT: 4000

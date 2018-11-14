@@ -11,7 +11,7 @@
 #define SLAVE_PORT 5000
 
 #define TOTAL_MAZES 15
-#define BUFFER_SIZE 800
+#define BUFFER_SIZE 1600
 
 
 
@@ -142,29 +142,50 @@ int solve(int *m, int lin, int col, int si, int sj, int ei, int ej)
 ////////////////////////////////////////
 //// UTILITY
 ////////////////////////////////////////
-typedef union uni_maze
-{
-    struct maze_copy
-    { 
-		int lines;
-		int columns;
-		int start_line;
-		int start_col;
-		int end_line;
-		int end_col;
-		int maze[BUFFER_SIZE];
-    };
-    int8_t bytes[BUFFER_SIZE+6];
+struct maze_copy
+{ 
+	int lines;
+	int columns;
+	int start_line;
+	int start_col;
+	int end_line;
+	int end_col;
+	int maze[BUFFER_SIZE];
+} ;
+
+union uni_maze
+{	
+	struct maze_copy maze;
+    int8_t bytes[sizeof(struct maze_copy)];
 };
 
 
 //BUFFER CONVERSION
-void maze_to_buffer(struct maze_s* maze, int8_t* buffer){
-	//memcpy(buffer,(const unsigned char*)&maze,sizeof(maze));
+void maze_to_buffer(struct maze_s* maze, union uni_maze* maze_uni){
+	maze_uni->maze.lines = maze->lines;
+	maze_uni->maze.columns = maze->columns;
+	maze_uni->maze.start_line = maze->start_line;
+	maze_uni->maze.start_col = maze->start_col;
+	maze_uni->maze.end_line = maze->end_line;
+	maze_uni->maze.end_col = maze->end_col;
+	memcpy(maze_uni->maze.maze, maze->maze, maze->lines*maze->columns*4);
 }
 
 void buffer_to_maze(struct maze_s* maze, int8_t* buffer){
-	//memcpy(maze,(const unsigned char*)&buffer,sizeof(buffer));
+
+	union uni_maze maze_uni;
+
+	memcpy(maze_uni.bytes, buffer, sizeof(struct maze_copy));
+
+	maze->lines = maze_uni.maze.lines;
+	maze->columns = maze_uni.maze.columns;
+	maze->start_line = maze_uni.maze.start_line;
+	maze->start_col = maze_uni.maze.start_col;
+	maze->end_line = maze_uni.maze.end_line;
+	maze->end_col = maze_uni.maze.end_col;
+	
+	memcpy(maze->maze, maze_uni.maze.maze, maze->lines*maze->columns*4);
+
 }
 
 //COMMUNICATION
@@ -236,13 +257,13 @@ void task_master_sender(){
 		val = hf_recv(&cpu, &task, buffer, &size, 0);
 		printf("\nMASTER SENDER => RECEIVED REQUEST from SLAVE at CPU %d", cpu);	
 
-
-		maze_to_buffer( &mazes[maze_pos], buffer);
+		union uni_maze uni_aux;
+		maze_to_buffer( &mazes[maze_pos], &uni_aux);
 
 		printf("\nMASTER SENDER => SENDING MAZE | cpu: %d | size: %d\n", cpu, sizeof(buffer));
 
 		// Envia buffer para CPU escrava, na porta do escravo
-		val = hf_send(cpu, SLAVE_PORT, buffer, sizeof(buffer), 0);
+		val = hf_send(cpu, SLAVE_PORT, uni_aux.bytes, sizeof(buffer), 0);
 
 		//PRINTA ERRO
 		if (val)
@@ -382,7 +403,11 @@ void task_slave(){
 		
 		//Envia labirinto para mestre receptor
 		printf("\nSLAVE => SENDING MAZE TO MASTER| CPU: %d | PORT: %d", getMasterCpuId(),MASTER_RECV_PORT);
-		hf_send(getMasterCpuId(), MASTER_RECV_PORT, buffer, sizeof(buffer), 0);
+		
+		union uni_maze uni_aux;
+		maze_to_buffer(m, &uni_aux);
+		
+		hf_send(getMasterCpuId(), MASTER_RECV_PORT, uni_aux.bytes, sizeof(buffer), 0);
 		
 		
 		/*
@@ -430,11 +455,11 @@ void task_slave(){
 void app_main(void)
 {
 	if (isMaster()){
-		hf_spawn(task_master_sender, 0, 0, 0, "master_sender", 4096);
-		hf_spawn(task_master_receiver, 0, 0, 0, "master_receiver", 4096);
+		hf_spawn(task_master_sender, 0, 0, 0, "master_sender", 15000);
+		hf_spawn(task_master_receiver, 0, 0, 0, "master_receiver", 15000);
 	}
 	else{
-		hf_spawn(task_slave, 0, 0, 0, "slave", 8192);
+		hf_spawn(task_slave, 0, 0, 0, "slave", 15000);
 	}
 }
 // https://stackoverflow.com/questions/19165134/correct-portable-way-to-interpret-buffer-as-a-struct
