@@ -12,6 +12,20 @@
 #define TOTAL_MAZES 15
 #define BUFFER_SIZE 1500
 
+
+
+int getTotalMazes(){
+	return TOTAL_MAZES;
+}
+
+int getCpuCount(){
+	return hf_ncores();
+}
+
+int getCpuId(){
+	return hf_cpuid();
+}
+
 ////////////////////////////////////////
 //// MASTER
 ////////////////////////////////////////
@@ -28,17 +42,7 @@ int isMaster(){
 	return getCpuId() == getMasterCpuId();
 }
 
-int getTotalMazes(){
-	return TOTAL_MAZES;
-}
 
-int getCpuCount(){
-	return hf_ncores();
-}
-
-int getCpuId(){
-	return hf_cpuid();
-}
 
 ////////////////////////////////////////
 //// LABYRINTH METHODS
@@ -150,11 +154,11 @@ union uni_maze {
 
 
 //BUFFER CONVERSION
-void struct_to_buffer(struct maze_s* maze, int8_t* buffer){
+void maze_to_buffer(struct maze_s* maze, int8_t* buffer){
 
 }
 
-void buffer_to_struct(struct maze_s* maze, int8_t* buffer){
+void buffer_to_maze(struct maze_s* maze, int8_t* buffer){
 
 }
 
