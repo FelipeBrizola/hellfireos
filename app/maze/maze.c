@@ -11,7 +11,7 @@
 #define SLAVE_PORT 5000
 
 #define TOTAL_MAZES 15
-#define BUFFER_SIZE 1600
+#define BUFFER_SIZE 16384
 
 
 
@@ -32,15 +32,27 @@ int getCpuId(){
 ////////////////////////////////////////
 
 int getMasterCpuId(){
-	if( getCpuCount() % 2 == 0){
+	return 0;
+	
+	/*if( getCpuCount() % 2 == 0){
 		return ( getCpuCount() / 2) - 1;
 	}else{
 		return getCpuCount() / 2;
-	}
+	}*/
+	
+}
+
+int getMasterReceiverCpuId(){
+	return getCpuCount() -1;
+	//return getMasterCpuId();
 }
 
 int isMaster(){
 	return getCpuId() == getMasterCpuId();
+}
+
+int isMasterReceiver(){
+	return getCpuId() == getMasterReceiverCpuId();
 }
 
 
@@ -98,7 +110,7 @@ int search(int *m, int i, int j, int ei, int ej, int lin, int col)
 	
 	while (k > 1) {
 		k = m[i * col + j];
-		printf("[%d,%d] ", i, j);
+		//printf("[%d,%d] ", i, j);
 		if (i - 1 >= 0) {
 			if (m[(i - 1) * col + j] < k && m[(i - 1) * col + j] > 0) {
 				i--;
@@ -237,7 +249,7 @@ void task_master_sender(){
 	int8_t buffer[BUFFER_SIZE];
 	uint16_t cpu, task, size;
 	int16_t val;
-	int32_t i;
+	int32_t channel;
 
 
 	//Variaveis auxiliares
@@ -248,59 +260,36 @@ void task_master_sender(){
 	//Envia todos os labirintos para os escravos
 	while( maze_pos < getTotalMazes() ){
 
-		i = hf_recvprobe();
-		if( i < 0 ) continue;
+		channel = hf_recvprobe();
+		if( channel < 0 ) continue;
 		
 		printf("\n\nMASTER SENDER => READY TO RECEIVE");	
 
 		//Recebe pedido de labirinto
-		val = hf_recv(&cpu, &task, buffer, &size, 0);
-		printf("\nMASTER SENDER => RECEIVED REQUEST from SLAVE at CPU %d", cpu);	
+		val = hf_recv(&cpu, &task, buffer, &size, channel);
+		printf("\nMASTER SENDER => RECEIVED REQUEST from SLAVE at CPU %d | Channel:%d", cpu, channel);	
+
+		if( val ){
+			printf("\nMASTER SENDER ==> FAILED TO RECEIVED REQUEST | error %d\n", val);
+		}
 
 		union uni_maze uni_aux;
 		maze_to_buffer( &mazes[maze_pos], &uni_aux);
 
-		printf("\nMASTER SENDER => SENDING MAZE | cpu: %d | size: %d\n", cpu, sizeof(buffer));
+		int send_size =  (10 * 4) + ( mazes[maze_pos].lines * mazes[maze_pos].columns * 4 );
+
+		printf("\nMASTER SENDER => SENDING MAZE (%d) | cpu: %d | size: %d\n", maze_pos, cpu, send_size);
+
 
 		// Envia buffer para CPU escrava, na porta do escravo
-		val = hf_send(cpu, SLAVE_PORT, uni_aux.bytes, sizeof(buffer), 0);
+		val = hf_send(cpu, SLAVE_PORT, uni_aux.bytes, send_size, channel);
 
 		//PRINTA ERRO
 		if (val)
-			printf("\nMASTER SENDER => FAILED SEND | error %d\n", val);
+			printf("\nMASTER SENDER => FAILED SEND MAZE | error %d\n", val);
 
 		maze_pos++;
 
-/*
-		// Caso seja CPU que queremos mandar, seja o mestre, então pula
-		if( cpu_id == getMasterCpuId() ){
-			cpu_id++;
-			continue;
-		}
-		// Converte labirinto para buffer = mazes[maze_pos];
-		maze_to_buffer( &mazes[maze_pos], buffer);
-
-		printf("\nMASTER SENDER => SENDING | cpu: %d | size: %d\n", cpu_id, sizeof(buffer));
-
-		// Envia buffer para CPU escrava, na porta do escravo
-		val = hf_send(cpu, SLAVE_PORT, buffer, sizeof(buffer), 0);
-
-
-		//PRINTA ERRO
-		if (val)
-			printf("\nMASTER SENDER => FAILED SEND | error %d\n", val);
-		
-		// Incrementa contadores
-		cpu_id++;
-		maze_pos++;
-
-		// Caso o numero de labirintos seja maior que 
-		// a quantidade de cpu disponivel, recomeça a contagem
-		if( cpu_id == getCpuCount()){
-			cpu_id = 0;
-		}
-
-		*/
 	}
 
 	destroy_communication();
@@ -315,7 +304,7 @@ void task_master_receiver(){
 	create_communication(MASTER_RECV_PORT);
 	uint16_t cpu, task, size;
 	int16_t val;
-	int32_t i;
+	int32_t channel;
 
 
 	//Variaveis auxiliares
@@ -323,33 +312,29 @@ void task_master_receiver(){
 	int maze_solved_total = 0;
 	struct maze_s * solvedMaze;
 
-
+	//Enquanto não resolver todos labirintos
 	while (maze_solved_total < getTotalMazes()){
 
-		i = hf_recvprobe();
-		if( i < 0 ) continue;
+		//Fica esperando receber
+		channel = hf_recvprobe();
+		if( channel < 0 ) continue;
 
 		printf("\n\nMASTER RECEIVER => READY TO RECEIVE");	
 
 		//Recebe de qualquer slave a task resolvida
-		val = hf_recv(&cpu, &task, buffer, &size, 0);
+		val = hf_recv(&cpu, &task, buffer, &size, channel);
 
 		//PRINTA ERRO
 		if (val)
 			printf("\nMASTER RECEIVER => FAILED RECV | error %d\n", val); 		//else printf("%s", buffer);
 
 
-		printf("\nMASTER RECEIVER => RECEIVED SOLVED | cpu: %d\n", cpu); 		//else printf("%s", buffer);
-
 		maze_solved_total++;
 
 		//Converte o buffer na struct
 		buffer_to_maze(solvedMaze, buffer);
-
-
-		//TODO: Faz alguma coisa com o buffer...
-
-		//Question: qual maze foi resolvido? tenho que incluir um int para saber ou não importa...
+	
+		printf("\nMASTER RECEIVER => RECEIVED SOLVED | cpu: %d | TotalSolved: %d | lines:%d | columns:%d\n", cpu, maze_solved_total, solvedMaze->lines, solvedMaze->columns); 		//else printf("%s", buffer);
 
 
 	}
@@ -377,14 +362,10 @@ void task_slave(){
 
 		//SEND REQUEST OF MAZE
 		printf("\n\nSLAVE => REQUESTING MAZE TO SOLVE | MASTER: %d | PORT: %d", getMasterCpuId(), MASTER_SEND_PORT );
-		hf_send(getMasterCpuId(), MASTER_SEND_PORT, buffer, sizeof(buffer), 0);
-
-		while(hf_recvprobe()<0){
-			continue;
-		}
+		hf_send(getMasterCpuId(), MASTER_SEND_PORT, 0, 0, getCpuId());
 
 		//Recebe labirinto
-		val = hf_recv(&cpu, &task, buffer, &size, 0);
+		val = hf_recv(&cpu, &task, buffer, &size, getCpuId());
 
 		//PRINTA ERRO
 		if (val)
@@ -395,54 +376,25 @@ void task_slave(){
 
 
 		//Resolve labirinto
-		printf("\nSLAVE => SOLVING MAZE | lines: %d | columns: %d", m->lines, m->columns);
+		printf("\nSLAVE => SOLVING MAZE | lines: %d | columns: %d | start_line: %d | start_col: %d", m->lines, m->columns, m->start_line, m->start_col);
 
-		delay_ms(200);
-
-		//int s = solve(m->maze, m->lines, m->columns, m->start_line, m->start_col, m->end_line, m->end_col);		
+		int s = solve(m->maze, m->lines, m->columns, m->start_line, m->start_col, m->end_line, m->end_col);		
 		
+		if(s){
+			printf("\nSLAVE => SOLVED");
+		}else{
+			printf("\nSLAVE => FAILED TO SOLVE");
+		}
+
 		//Envia labirinto para mestre receptor
 		printf("\nSLAVE => SENDING MAZE TO MASTER| CPU: %d | PORT: %d", getMasterCpuId(),MASTER_RECV_PORT);
 		
 		union uni_maze uni_aux;
 		maze_to_buffer(m, &uni_aux);
 		
-		hf_send(getMasterCpuId(), MASTER_RECV_PORT, uni_aux.bytes, sizeof(buffer), 0);
+		hf_send(getMasterReceiverCpuId(), MASTER_RECV_PORT, uni_aux.bytes, size, getCpuId());
 		
-		
-		/*
-		printf("\nSLAVE => READY TO RECEIVE");
 
-		//Recebe labirinto
-		val = hf_recv(&cpu, &task, buffer, &size, 0);
-
-		//PRINTA ERRO
-		if (val)
-			printf("\nSLAVE => FAILED RECV | error %d\n", val); 		//else printf("%s", buffer);
-
-		//Converte o buffer para labirinto
-		buffer_to_maze(m, buffer);
-
-
-
-		printf("\nSLAVE => SOLVING MAZE | lines: %d | columns: %d", m->lines, m->columns);
-		//Resolve labirinto
-		delay_ms(200);
-		int s = solve(m->maze, m->lines, m->columns, m->start_line, m->start_col, m->end_line, m->end_col);
-		if (s) {
-			printf("\nOK!\n");
-		} else {
-			printf("\nERROR!\n");
-		};
-
-		//Converte o labirinto para buffer
-		maze_to_buffer(m, buffer);
-
-
-		printf("\nSLAVE => SENDING MAZE TO MASTER| CPU: %d | PORT: %d", getMasterCpuId(),MASTER_RECV_PORT);
-		//Envia labirinto
-		hf_send(getMasterCpuId(), MASTER_RECV_PORT, buffer, sizeof(buffer), 0);
-		*/
 	}
 
 
@@ -455,11 +407,15 @@ void task_slave(){
 void app_main(void)
 {
 	if (isMaster()){
-		hf_spawn(task_master_sender, 0, 0, 0, "master_sender", 15000);
-		hf_spawn(task_master_receiver, 0, 0, 0, "master_receiver", 15000);
+		hf_spawn(task_master_sender, 0, 0, 0, "master_sender", 256 * 1024 );
 	}
+	
+	else if( isMasterReceiver()){
+		hf_spawn(task_master_receiver, 0, 0, 0, "master_receiver",  256 * 1024);
+	}
+	
 	else{
-		hf_spawn(task_slave, 0, 0, 0, "slave", 15000);
+		hf_spawn(task_slave, 0, 0, 0, "slave",  256 * 1024);
 	}
 }
 // https://stackoverflow.com/questions/19165134/correct-portable-way-to-interpret-buffer-as-a-struct
