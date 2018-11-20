@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 14:58:27]
+HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 16:07:25]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2018]
 ===========================================================
 
@@ -15,13 +15,13 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _timer_init()
 HAL: _irq_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001020, sp: 10013b60, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001030, sp: 10013bd0, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core #0
 KERNEL: NoC queue init, 128 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [master_sender], id: 1, p:0, c:0, d:0, addr: 10001e54, sp: 10058190, ss: 262144 bytes
+KERNEL: [master_sender], id: 1, p:0, c:0, d:0, addr: 10001e58, sp: 10058200, ss: 262144 bytes
 KERNEL: free heap: 218360 bytes
 KERNEL: HellfireOS is up
 
@@ -94,3 +94,34 @@ MASTER SENDER => SENDING MAZE (11) | cpu: 2 | size: 6364
 MASTER SENDER => READY TO RECEIVE
 MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 3 | Channel:3
 MASTER SENDER => SENDING MAZE (12) | cpu: 3 | size: 6364
+
+
+MASTER SENDER => READY TO RECEIVE
+MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 1 | Channel:1
+MASTER SENDER => SENDING MAZE (13) | cpu: 1 | size: 6364
+
+
+MASTER SENDER => READY TO RECEIVE
+MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 2 | Channel:2
+MASTER SENDER => SENDING MAZE (14) | cpu: 2 | size: 6364
+
+###############################################
+### TODOS LABIRINTOS ENVIADOS 
+###############################################
+
+
+
+
+
+
+
+
+
+KERNEL: task died, id: 1, tasks left: 1
+###############################################
+### MESTRE ENVIA INICIADO 
+###############################################
+
+MASTER SENDER => CREATING COMMUNICATION
+MASTER SENDER => FAILED CREATE COMMUNICATION
+KERNEL: panic [task 1] - unknown error -> system halted.

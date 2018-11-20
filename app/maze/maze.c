@@ -13,6 +13,7 @@
 #define TOTAL_MAZES 15
 #define BUFFER_SIZE 16384
 
+#define SOLVE_ENABLED 1
 
 
 int getTotalMazes(){
@@ -305,7 +306,7 @@ void task_master_sender(){
 }
 void task_master_receiver(){
 
-	uint32_t tempo_inicial = hf_ticktime();
+	uint32_t tempo_inicial = _readcounter();
 
 	printf("\n###############################################");
 	printf("\n### MESTRE RECEBE INICIADO ");
@@ -354,12 +355,13 @@ void task_master_receiver(){
 	}
 
 	
-	uint32_t tempo_final = hf_ticktime();
-	int convert_to_sec = 1000*1000*1000;
-	printf("\n###############################################");
+	uint32_t tempo_final = _readcounter();
+	int cpu_hz = 25 * 1000 * 1000;
+	printf("\n#########################################################");
 	printf("\n### TODOS LABIRINTOS RECEBIDOS ");
-	printf("\n### TEMPO TOTAL : %d", (tempo_final - tempo_inicial)/(convert_to_sec) );
-	printf("\n###############################################");
+	printf("\n### TOTAL CLOCKS : %16d", (tempo_final - tempo_inicial) );
+	printf("\n### DIVIDI POR (25 000 000) 25mhz para EXEC em SEGUNDOS ");
+	printf("\n#########################################################");
 	printf("\n\n\n\n\n\n\n\n\n");
 
 	destroy_communication();
@@ -400,13 +402,18 @@ void task_slave(){
 		//Resolve labirinto
 		printf("\nSLAVE => SOLVING MAZE | lines: %d | columns: %d | start_line: %d | start_col: %d", m->lines, m->columns, m->start_line, m->start_col);
 
-		int s = solve(m->maze, m->lines, m->columns, m->start_line, m->start_col, m->end_line, m->end_col);		
-		
-		if(s){
-			printf("\nSLAVE => SOLVED");
+		if( SOLVE_ENABLED ){
+			int s = solve(m->maze, m->lines, m->columns, m->start_line, m->start_col, m->end_line, m->end_col);		
+			if(s){
+				printf("\nSLAVE => SOLVED");
+			}else{
+				printf("\nSLAVE => FAILED TO SOLVE");
+			}
 		}else{
-			printf("\nSLAVE => FAILED TO SOLVE");
-		}//delay_ms(x);
+			delay_ms(200);
+
+		}
+
 
 
 		

@@ -5,19 +5,19 @@ Seções:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .text.start   000002b4  10000000  10000000  00001000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .text         0000403c  100002b4  100002b4  000012b4  2**2
+  1 .text         00004030  100002b4  100002b4  000012b4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000d88  100042f0  100042f0  000052f0  2**2
+  2 .rodata       00000e04  100042e4  100042e4  000052e4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .data         0000d288  10005078  10005078  00006078  2**2
+  3 .data         0000d288  100050e8  100050e8  000060e8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .bss          0007b478  10012300  10012300  00013300  2**3
+  4 .bss          0007b478  10012370  10012370  00013370  2**3
                   ALLOC
-  5 .scommon      00000034  1008d778  1008d778  00013300  2**2
+  5 .scommon      00000034  1008d7e8  1008d7e8  00013370  2**2
                   ALLOC
-  6 .reginfo      00000018  00000000  00000000  00013300  2**2
+  6 .reginfo      00000018  00000000  00000000  00013370  2**2
                   CONTENTS, READONLY, LINK_ONCE_SAME_SIZE
-  7 .comment      00000011  00000000  00000000  00013318  2**0
+  7 .comment      00000011  00000000  00000000  00013388  2**0
                   CONTENTS, READONLY
-  8 .gnu.attributes 00000010  00000000  00000000  00013329  2**0
+  8 .gnu.attributes 00000010  00000000  00000000  00013399  2**0
                   CONTENTS, READONLY
