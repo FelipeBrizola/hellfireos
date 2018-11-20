@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 16:07:25]
+HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 19:12:55]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2018]
 ===========================================================
 
@@ -15,101 +15,55 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _timer_init()
 HAL: _irq_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001030, sp: 10013bd0, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10000edc, sp: 10012980, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core #0
 KERNEL: NoC queue init, 128 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [master_sender], id: 1, p:0, c:0, d:0, addr: 10001e58, sp: 10058200, ss: 262144 bytes
+KERNEL: [sequencial], id: 1, p:0, c:0, d:0, addr: 10001754, sp: 10056fb0, ss: 262144 bytes
 KERNEL: free heap: 218360 bytes
 KERNEL: HellfireOS is up
 
-###############################################
-### MESTRE ENVIA INICIADO 
-###############################################
-
-MASTER SENDER => CREATING COMMUNICATION
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 3 | Channel:3
-MASTER SENDER => SENDING MAZE (0) | cpu: 3 | size: 964
+#########################################################
+### PROCESSAMENTO SEQUENCIAL INICIADO 
+#########################################################
 
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 1 | Channel:1
-MASTER SENDER => SENDING MAZE (1) | cpu: 1 | size: 964
+SOLVING MAZE -> 1
 
+SOLVING MAZE -> 2
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 4 | Channel:4
-MASTER SENDER => SENDING MAZE (2) | cpu: 4 | size: 964
+SOLVING MAZE -> 3
 
+SOLVING MAZE -> 4
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 2 | Channel:2
-MASTER SENDER => SENDING MAZE (3) | cpu: 2 | size: 964
+SOLVING MAZE -> 5
 
+SOLVING MAZE -> 6
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 3 | Channel:3
-MASTER SENDER => SENDING MAZE (4) | cpu: 3 | size: 964
+SOLVING MAZE -> 7
 
+SOLVING MAZE -> 8
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 1 | Channel:1
-MASTER SENDER => SENDING MAZE (5) | cpu: 1 | size: 3484
+SOLVING MAZE -> 9
 
+SOLVING MAZE -> 10
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 4 | Channel:4
-MASTER SENDER => SENDING MAZE (6) | cpu: 4 | size: 3484
+SOLVING MAZE -> 11
 
+SOLVING MAZE -> 12
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 2 | Channel:2
-MASTER SENDER => SENDING MAZE (7) | cpu: 2 | size: 3484
+SOLVING MAZE -> 13
 
+SOLVING MAZE -> 14
 
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 3 | Channel:3
-MASTER SENDER => SENDING MAZE (8) | cpu: 3 | size: 3484
-
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 1 | Channel:1
-MASTER SENDER => SENDING MAZE (9) | cpu: 1 | size: 3484
-
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 4 | Channel:4
-MASTER SENDER => SENDING MAZE (10) | cpu: 4 | size: 6364
-
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 2 | Channel:2
-MASTER SENDER => SENDING MAZE (11) | cpu: 2 | size: 6364
-
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 3 | Channel:3
-MASTER SENDER => SENDING MAZE (12) | cpu: 3 | size: 6364
-
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 1 | Channel:1
-MASTER SENDER => SENDING MAZE (13) | cpu: 1 | size: 6364
-
-
-MASTER SENDER => READY TO RECEIVE
-MASTER SENDER => RECEIVED REQUEST from SLAVE at CPU 2 | Channel:2
-MASTER SENDER => SENDING MAZE (14) | cpu: 2 | size: 6364
-
-###############################################
-### TODOS LABIRINTOS ENVIADOS 
-###############################################
-
-
+SOLVING MAZE -> 15
+#########################################################
+### TODOS LABIRINTOS RESOLVIDOS SEQUENCIALMENTE 
+### TOTAL CLOCKS :        374928712
+### DIVIDI POR (25 000 000) 25mhz para EXEC em SEGUNDOS 
+#########################################################
 
 
 
@@ -118,10 +72,9 @@ MASTER SENDER => SENDING MAZE (14) | cpu: 2 | size: 6364
 
 
 KERNEL: task died, id: 1, tasks left: 1
-###############################################
-### MESTRE ENVIA INICIADO 
-###############################################
+#########################################################
+### PROCESSAMENTO SEQUENCIAL INICIADO 
+#########################################################
 
-MASTER SENDER => CREATING COMMUNICATION
-MASTER SENDER => FAILED CREATE COMMUNICATION
-KERNEL: panic [task 1] - unknown error -> system halted.
+
+SOLVING MAZE -> 1

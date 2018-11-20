@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 16:07:34]
+HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 19:13:02]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2018]
 ===========================================================
 
@@ -15,98 +15,11 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _timer_init()
 HAL: _irq_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001030, sp: 10013be0, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10000edc, sp: 10012980, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core #5
 KERNEL: NoC queue init, 128 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [master_receiver], id: 1, p:0, c:0, d:0, addr: 10001cc4, sp: 10058210, ss: 262144 bytes
-KERNEL: free heap: 218360 bytes
+KERNEL: free heap: 480512 bytes
 KERNEL: HellfireOS is up
-
-###############################################
-### MESTRE RECEBE INICIADO 
-###############################################
-MASTER RECEIVER => CREATING COMMUNICATION
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 3 | TotalSolved: 1 | lines:11 | columns:21
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 1 | TotalSolved: 2 | lines:11 | columns:21
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 4 | TotalSolved: 3 | lines:11 | columns:21
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 2 | TotalSolved: 4 | lines:11 | columns:21
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 3 | TotalSolved: 5 | lines:11 | columns:21
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 1 | TotalSolved: 6 | lines:21 | columns:41
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 4 | TotalSolved: 7 | lines:21 | columns:41
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 2 | TotalSolved: 8 | lines:21 | columns:41
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 3 | TotalSolved: 9 | lines:21 | columns:41
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 1 | TotalSolved: 10 | lines:21 | columns:41
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 2 | TotalSolved: 11 | lines:31 | columns:51
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 4 | TotalSolved: 12 | lines:31 | columns:51
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 3 | TotalSolved: 13 | lines:31 | columns:51
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 1 | TotalSolved: 14 | lines:31 | columns:51
-
-
-MASTER RECEIVER => READY TO RECEIVE
-MASTER RECEIVER => RECEIVED SOLVED | cpu: 2 | TotalSolved: 15 | lines:31 | columns:51
-
-#########################################################
-### TODOS LABIRINTOS RECEBIDOS 
-### TOTAL CLOCKS :        139587321
-### DIVIDI POR (25 000 000) 25mhz para EXEC em SEGUNDOS 
-#########################################################
-
-
-
-
-
-
-
-
-
-KERNEL: task died, id: 1, tasks left: 1
-###############################################
-### MESTRE RECEBE INICIADO 
-###############################################
-MASTER RECEIVER => CREATING COMMUNICATION
-MASTER RECEIVER => FAILED CREATE COMMUNICATION
-KERNEL: panic [task 1] - unknown error -> system halted.

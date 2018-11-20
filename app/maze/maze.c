@@ -14,6 +14,7 @@
 #define BUFFER_SIZE 16384
 
 #define SOLVE_ENABLED 1
+#define ENABLE_SEQUENTIAL 0
 
 
 int getTotalMazes(){
@@ -432,12 +433,49 @@ void task_slave(){
 
 }
 
+void sequencial(){
+	uint32_t tempo_inicial = _readcounter();
+
+	printf("\n#########################################################");
+	printf("\n### PROCESSAMENTO SEQUENCIAL INICIADO ");
+	printf("\n#########################################################\n");
+
+	int i = 0;
+	int total = getTotalMazes();
+
+	for(; i < total; i++ ){
+		printf("\n\nSOLVING MAZE -> %d", i+1);
+		struct maze_s m = mazes[i];
+		solve(m.maze, m.lines, m.columns, m.start_line, m.start_col, m.end_line, m.end_col);		
+		
+	}
+
+	uint32_t tempo_final = _readcounter();
+	printf("\n#########################################################");
+	printf("\n### TODOS LABIRINTOS RESOLVIDOS SEQUENCIALMENTE ");
+	printf("\n### TOTAL CLOCKS : %16d", (tempo_final - tempo_inicial) );
+	printf("\n### DIVIDI POR (25 000 000) 25mhz para EXEC em SEGUNDOS ");
+	printf("\n#########################################################");
+
+	printf("\n\n\n\n\n\n\n");
+
+	hf_kill(hf_selfid());
+}
+
 
 ////////////////////////////////////////
 //// MAIN
 ////////////////////////////////////////
 void app_main(void)
 {
+
+	if( ENABLE_SEQUENTIAL ) {
+		if( getCpuId() == 0){
+			hf_spawn(sequencial, 0, 0, 0, "sequencial", 256 * 1024 );
+		}
+		return;
+	}
+	
 	if (isMaster()){
 		hf_spawn(task_master_sender, 0, 0, 0, "master_sender", 256 * 1024 );
 	}
