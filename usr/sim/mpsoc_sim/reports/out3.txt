@@ -1,7 +1,7 @@
 
 KERNEL: booting...
 ===========================================================
-HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 14:12:29]
+HellfireOS v2.18.10 (4.6.1) [Nov 20 2018, 14:58:32]
 Embedded Systems Group - GSE, PUCRS - [2007 - 2018]
 ===========================================================
 
@@ -15,13 +15,13 @@ HAL: _vm_init()
 HAL: _sched_init()
 HAL: _timer_init()
 HAL: _irq_init()
-KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001020, sp: 10013960, ss: 1024 bytes
+KERNEL: [idle task], id: 0, p:0, c:0, d:0, addr: 10001020, sp: 10013b70, ss: 1024 bytes
 HAL: _device_init()
 KERNEL: this is core #3
 KERNEL: NoC queue init, 128 packets
 KERNEL: NoC driver registered
 HAL: _task_init()
-KERNEL: [slave], id: 1, p:0, c:0, d:0, addr: 10001a94, sp: 10057f90, ss: 262144 bytes
+KERNEL: [slave], id: 1, p:0, c:0, d:0, addr: 10001a94, sp: 100581a0, ss: 262144 bytes
 KERNEL: free heap: 218360 bytes
 KERNEL: HellfireOS is up
 
@@ -30,21 +30,16 @@ SLAVE => CREATING COMMUNICATION
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 0 | PORT: 3000
 SLAVE => SOLVING MAZE | lines: 11 | columns: 21 | start_line: 1 | start_col: 1
 SLAVE => SOLVED
-SLAVE => SENDING MAZE TO MASTER| CPU: 0 | PORT: 4000
+SLAVE => SENDING MAZE TO MASTER RECEIVER | CPU: 5 | PORT: 4000 | Channel: 3
 
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 0 | PORT: 3000
 SLAVE => SOLVING MAZE | lines: 11 | columns: 21 | start_line: 1 | start_col: 1
 SLAVE => SOLVED
-SLAVE => SENDING MAZE TO MASTER| CPU: 0 | PORT: 4000
+SLAVE => SENDING MAZE TO MASTER RECEIVER | CPU: 5 | PORT: 4000 | Channel: 3
 
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 0 | PORT: 3000
 SLAVE => SOLVING MAZE | lines: 21 | columns: 41 | start_line: 1 | start_col: 1
 SLAVE => SOLVED
-SLAVE => SENDING MAZE TO MASTER| CPU: 0 | PORT: 4000
-
-SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 0 | PORT: 3000
-SLAVE => SOLVING MAZE | lines: 31 | columns: 51 | start_line: 1 | start_col: 1
-SLAVE => SOLVED
-SLAVE => SENDING MAZE TO MASTER| CPU: 0 | PORT: 4000
+SLAVE => SENDING MAZE TO MASTER RECEIVER | CPU: 5 | PORT: 4000 | Channel: 3
 
 SLAVE => REQUESTING MAZE TO SOLVE | MASTER: 0 | PORT: 3000

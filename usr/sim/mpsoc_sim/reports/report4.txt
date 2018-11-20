@@ -1,40 +1,40 @@
 
 Code Execution Report - Core 4
 
-CPU cycles: 250000001
-WCET: 10000.0000ms
-Estimated energy consumption: 0.432123J (20587 gates Plasma CPU core, CMOS TSMC 0.35um)
+CPU cycles: 25000001
+WCET: 1000.0000ms
+Estimated energy consumption: 0.046966J (20587 gates Plasma CPU core, CMOS TSMC 0.35um)
 
 Instructions (MIPS I instruction set):
-       J:   12393530;      JAL:   33047506;      BEQ:   11718157;      BNE:    3939954; 
-    BLEZ:      78150;     BGTZ:        429;     ADDI:       3140;    ADDIU:   14028524; 
-    SLTI:        525;    SLTIU:       4349;     ANDI:      19683;      ORI:       5106; 
-    XORI:        951;      LUI:      48549;     COP0:       6293;     BEQL:          0; 
-    BNEL:          0;    BLEZL:          0;    BGTZL:          0;       LB:     219767; 
-      LH:          0;       LW:   20260559;      LBU:      19479;      LHU:      22197; 
-      SB:     233535;       SH:      15003;       SW:     275584;       LL:          0; 
-      SC:          0;      SLL:     359514;      SRL:     350107;      SRA:          3; 
-    SLLV:         96;     SRLV:          0;     SRAV:          0;       JR:   33051523; 
-    JALR:       2949;     MOVZ:          0;     MOVN:          0;     MFHI:      11278; 
-    MTHI:       1046;     MFLO:       2610;     MTLO:       1046;     MULT:       1418; 
-   MULTU:          0;      DIV:      10161;     DIVU:         77;      ADD:          0; 
-    ADDU:     618184;      SUB:          0;     SUBU:      72032;      AND:       1424; 
-      OR:     290714;      XOR:          4;      NOR:          0;      SLT:    3564544; 
-    SLTU:     148499;    DADDU:          0;     BLTZ:        987;     BGEZ:      56109; 
+       J:    1221667;      JAL:    2432003;      BEQ:     881872;      BNE:    1258327; 
+    BLEZ:      24838;     BGTZ:        234;     ADDI:        566;    ADDIU:    4185897; 
+    SLTI:        280;    SLTIU:       3120;     ANDI:      11750;      ORI:        818; 
+    XORI:         93;      LUI:      15448;     COP0:       3371;     BEQL:          0; 
+    BNEL:          0;    BLEZL:          0;    BGTZL:          0;       LB:     213353; 
+      LH:          0;       LW:     951678;      LBU:       5389;      LHU:      14988; 
+      SB:     223771;       SH:       9575;       SW:     160490;       LL:          0; 
+      SC:          0;      SLL:      38733;      SRL:      39940;      SRA:          3; 
+    SLLV:         96;     SRLV:          0;     SRAV:          0;       JR:    2432584; 
+    JALR:        375;     MOVZ:          0;     MOVN:          0;     MFHI:       1830; 
+    MTHI:        188;     MFLO:       1046;     MTLO:        188;     MULT:        721; 
+   MULTU:          0;      DIV:       1581;     DIVU:         65;      ADD:          0; 
+    ADDU:     154278;      SUB:          0;     SUBU:      10367;      AND:        566; 
+      OR:      30130;      XOR:          3;      NOR:          0;      SLT:    1019630; 
+    SLTU:      19927;    DADDU:          0;     BLTZ:        127;     BGEZ:       5487; 
    BLTZL:          0;    BGEZL:          0;   BLTZAL:          0;   BGEZAL:          0; 
  BLTZALL:          0;  BGEZALL:          0; 
 
-Instructions executed: 134885295
-Effective instructions per cycle (IPC): 0.539541
+Instructions executed: 15377393
+Effective instructions per cycle (IPC): 0.615096
 I/O wait cycles: 0
 
 Instructions executed from each class:
-Arithmetic:      18451453 (13.679364%)
-Branch/Jump:     94289294 (69.903313%)
-Load/Store:      21046124 (15.602979%)
-Logical:           366431 (0.271661%)
-Move:               22273 (0.016513%)
-Shift:             709720 (0.526166%)
+Arithmetic:       5396432 (35.093285%)
+Branch/Jump:      8257514 (53.699051%)
+Load/Store:       1579244 (10.269907%)
+Logical:            58808 (0.382432%)
+Move:                6623 (0.043070%)
+Shift:              78772 (0.512258%)
 
 Flits sent: 0
 Flits received: 0

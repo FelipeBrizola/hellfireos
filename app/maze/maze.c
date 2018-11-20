@@ -241,8 +241,11 @@ void destroy_communication(){
 ////////////////////////////////////////
 
 void task_master_sender(){
-	
-	printf("\nMASTER SENDER => CREATING COMMUNICATION");
+	printf("\n###############################################");
+	printf("\n### MESTRE ENVIA INICIADO ");
+	printf("\n###############################################");
+
+	printf("\n\nMASTER SENDER => CREATING COMMUNICATION");
 
 	//Cria comunicação enviar trabalho
 	create_communication(MASTER_SEND_PORT);
@@ -291,12 +294,22 @@ void task_master_sender(){
 		maze_pos++;
 
 	}
+	printf("\n###############################################");
+	printf("\n### TODOS LABIRINTOS ENVIADOS ");
+	printf("\n###############################################");
+	printf("\n\n\n\n\n\n\n\n\n");
 
 	destroy_communication();
 
 
 }
 void task_master_receiver(){
+
+	uint32_t tempo_inicial = hf_ticktime();
+
+	printf("\n###############################################");
+	printf("\n### MESTRE RECEBE INICIADO ");
+	printf("\n###############################################");
 
 	printf("\nMASTER RECEIVER => CREATING COMMUNICATION");
 
@@ -312,6 +325,7 @@ void task_master_receiver(){
 	int maze_solved_total = 0;
 	struct maze_s * solvedMaze;
 
+	
 	//Enquanto não resolver todos labirintos
 	while (maze_solved_total < getTotalMazes()){
 
@@ -339,6 +353,14 @@ void task_master_receiver(){
 
 	}
 
+	
+	uint32_t tempo_final = hf_ticktime();
+	int convert_to_sec = 1000*1000*1000;
+	printf("\n###############################################");
+	printf("\n### TODOS LABIRINTOS RECEBIDOS ");
+	printf("\n### TEMPO TOTAL : %d", (tempo_final - tempo_inicial)/(convert_to_sec) );
+	printf("\n###############################################");
+	printf("\n\n\n\n\n\n\n\n\n");
 
 	destroy_communication();
 
@@ -384,10 +406,13 @@ void task_slave(){
 			printf("\nSLAVE => SOLVED");
 		}else{
 			printf("\nSLAVE => FAILED TO SOLVE");
-		}
+		}//delay_ms(x);
+
+
+		
 
 		//Envia labirinto para mestre receptor
-		printf("\nSLAVE => SENDING MAZE TO MASTER| CPU: %d | PORT: %d", getMasterCpuId(),MASTER_RECV_PORT);
+		printf("\nSLAVE => SENDING MAZE TO MASTER RECEIVER | CPU: %d | PORT: %d | Channel: %d", getMasterReceiverCpuId(),MASTER_RECV_PORT, getCpuId());
 		
 		union uni_maze uni_aux;
 		maze_to_buffer(m, &uni_aux);
